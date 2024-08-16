@@ -13,22 +13,22 @@ import "./Sidebar.css";
 const routes = [
   {
     path: "/",
-    name: "Dashboard",
+    name: "الرئيسية",
     icon: <FaHome />,
   },
   {
     path: "/users",
-    name: "Users",
+    name: "المستخدمين",
     icon: <FaUser />,
   },
   {
     path: "/messages",
-    name: "Messages",
+    name: "الرسائل",
     icon: <MdMessage />,
   },
   {
     path: "/analytics",
-    name: "Analytics",
+    name: "التحليلات",
     icon: <BiAnalyse />,
   },
   {
@@ -55,7 +55,7 @@ const routes = [
   },
   {
     path: "/order",
-    name: "Order",
+    name: "الطلبات",
     icon: <BsCartCheck />,
   },
   {
@@ -83,7 +83,7 @@ const routes = [
   },
   {
     path: "/saved",
-    name: "Saved",
+    name: "المفضلة",
     icon: <AiFillHeart />,
   },
 ];
@@ -150,7 +150,7 @@ const SideBar = ({ children }) => {
                   exit="hidden"
                   className="logo"
                 >
-                  DoSomeCoding
+                  القائمة
                 </motion.h1>
               )}
             </AnimatePresence>
@@ -180,12 +180,13 @@ const SideBar = ({ children }) => {
             {routes.map((route, index) => {
               if (route.subRoutes) {
                 return (
-                  <SidebarMenu
-                    setIsOpen={setIsOpen}
-                    route={route}
-                    showAnimation={showAnimation}
-                    isOpen={isOpen}
-                  />
+                  // <SidebarMenu
+                  //   setIsOpen={setIsOpen}
+                  //   route={route}
+                  //   showAnimation={showAnimation}
+                  //   isOpen={isOpen}
+                  // />
+                  null
                 );
               }
 

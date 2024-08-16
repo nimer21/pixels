@@ -14,6 +14,7 @@ import Setting from "./pages/Setting";
 
 import SidebarNavMenu from './components/SidebarNavMenu/SidebarNavMenu'
 import SideBarNav from './components/SideBarNav/SideBarNav';
+import Grid from './components/Grid/Grid';
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       {/* <SidebarNavMenu> */}
       {/* <SideBarNav> */}
       <SideBar>
+        {/* <Grid/> */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />

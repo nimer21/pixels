@@ -4,7 +4,7 @@ const Order = () => {
       <div className="bg-slate-300">
     <h1 className="text-3xl bg-slate-600 p-4 mb-8 text-center text-white">المنتجات الوطنية</h1>
 
-    <div className="parent-div lg:mx-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    <div className="parent-div lg:mx-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-y-scroll h-[calc(100vh-190px)]">
 
         <div className="card p-2 m-2 bg-white mx-auto rounded-sm lg:mx-2">
             <img src="https://picsum.photos/400/300?random=1" alt=""/>

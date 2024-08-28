@@ -18,17 +18,17 @@ const routes = [
   },
   {
     path: "/users",
-    name: "المستخدمين",
+    name: "بكسل",
     icon: <FaUser />,
   },
   {
     path: "/messages",
-    name: "الرسائل",
+    name: "الهدف",
     icon: <MdMessage />,
   },
   {
     path: "/analytics",
-    name: "التحليلات",
+    name: "الشروط",
     icon: <BiAnalyse />,
   },
   {
@@ -89,7 +89,7 @@ const routes = [
 ];
 
 const SideBar = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen(!isOpen);
   const inputAnimation = {
     hidden: {
@@ -156,7 +156,8 @@ const SideBar = ({ children }) => {
             </AnimatePresence>
 
             <div className="bars">
-              <FaBars onClick={toggle} />
+              <FaBars />
+              {/* onClick={toggle} */}
             </div>
           </div>
           <div className="search">

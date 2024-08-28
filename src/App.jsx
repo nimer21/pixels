@@ -12,11 +12,26 @@ import Order from "./pages/Order";
 import Saved from "./pages/Saved";
 import Setting from "./pages/Setting";
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 import SidebarNavMenu from './components/SidebarNavMenu/SidebarNavMenu'
 import SideBarNav from './components/SideBarNav/SideBarNav';
 import Grid from './components/Grid/Grid';
 
 const App = () => {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  const pixelSize = 10; // Each pixel is 10x10
+
+  const rows = Math.floor(screenHeight / pixelSize);
+  const cols = Math.floor(screenWidth / pixelSize);
+
+  console.log("rows", rows); // rows 73
+  console.log("cols", cols); // cols 153
+  console.log("screenWidth", screenWidth); // screenWidth 1536
+  console.log("screenHeight", screenHeight); // screenHeight 730
+
   return (
     <div>
       <Router>
@@ -26,12 +41,13 @@ const App = () => {
         {/* <Grid/> */}
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
+          <Route path="/users" element={<Users rows={33} cols={66}/>} />
+          {/* <Route path="/users" element={<Users rows={33} cols={67}/>} /> */}
           <Route path="/messages" element={<Messages />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/file-manager" element={<FileManager />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/saved" element={<Saved />} />
+          <Route path="/saved" element={<Saved rows={33} cols={67} />} />
           <Route path="/settings" element={<Setting />} />
 
           <Route path="*" element={<> not found</>} />

@@ -18,7 +18,12 @@ const routes = [
   },
   {
     path: "/users",
-    name: "بكسل",
+    name: "إضافة البكسلات",
+    icon: <FaUser />,
+  },
+  {
+    path: "/dashboard",
+    name: "فضاء البكسلات",
     icon: <FaUser />,
   },
   {
@@ -83,7 +88,7 @@ const routes = [
   },
   {
     path: "/saved",
-    name: "المفضلة",
+    name: "حجز البكسلات",
     icon: <AiFillHeart />,
   },
 ];
@@ -156,7 +161,7 @@ const SideBar = ({ children }) => {
             </AnimatePresence>
 
             <div className="bars">
-              <FaBars />
+              <FaBars/>
               {/* onClick={toggle} */}
             </div>
           </div>

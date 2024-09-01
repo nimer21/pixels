@@ -1,24 +1,33 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "../components/PixelGrid/./PixelGrid.css";
 import axios from "axios";
-import Modall from '../helpers/Modal';
 import { Trash } from "react-feather";
 import { Button, Modal } from "react-bootstrap";
 /********************************************************************************************************** */
 const Users = ({ rows, cols }) => {
   const localStorageKey = 'pixelGridImages';
 
-  const initialGrid = 
-  Array(rows * cols).fill({ color: "#ccc", image: null });
+  // Load grid from local storage or initialize it
+  const initialGrid = JSON.parse(localStorage.getItem(localStorageKey)) || 
+                      Array(rows * cols).fill({ color: '#ccc', image: null });
 
-  const fixedCols = 47; // Number of columns (adjust this value as needed)
-  const fixedRows = 47; // Number of rows (adjust this value as needed)
+  // const initialGrid = 
+  // Array(rows * cols).fill({ color: "#ccc", image: null });
+
+  const fixedCols = 67; // Number of columns (adjust this value as needed)
+  const fixedRows = 33; // Number of rows (adjust this value as needed)
   const [pixelSize, setPixelSize] = useState(0);
 
   //const [grid, setGrid] = useState(initialGrid);
   const [showModal, setShowModal] = useState(false);
 
+  const [showModalImage, setShowModalImage] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const [hoveredPixel, setHoveredPixel] = useState(null); // State to track hovered pixel index
+
   const [grid, setGrid] = useState(initialGrid);
+  
 
   // Initialize the grid with an array of objects, each representing a pixel
   //const [grid, setGrid] = useState(Array(rows * cols).fill({ color: "#ccc", image: null }));
@@ -68,7 +77,7 @@ const Users = ({ rows, cols }) => {
 
   // Function to handle pixel click and upload image
   const handlePixelClick = (index) => {
-    //console.log("index", index)
+    console.log('Selected pixel index:', index); // Log the index of the selected pixel
     const input = document.createElement("input");
     input.type = "file";
     input.accept = "image/*";
@@ -137,6 +146,20 @@ const Users = ({ rows, cols }) => {
     };
     input.click(); // Trigger the file input dialog
   };
+
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setShowModalImage(true);
+    //console.log("image clicked");
+  };
+
+  const handleCloseModal = () => {
+    setShowModalImage(false);
+    setSelectedImage(null);
+  };
+/********************************************************************************************************** */
+
 /********************************************************************************************************** */
 
   const handlePixelReset = (index) => {
@@ -185,26 +208,6 @@ const Users = ({ rows, cols }) => {
 /********************************************************************************************************** */
   return (
     <div>
-      {/***************************************************************************************** */}
-      {/*<Button variant="danger" onClick={() => setShowModal(true)}>
-      إعادة تعيين كافة الصور
-      </Button>
-
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>تأكيد إعادة الضبط</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>هل أنت متأكد أنك تريد إعادة تعيين كافة الصور؟</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            إلغاء
-          </Button>
-          <Button variant="danger" onClick={handleResetAll}>
-            إعادة تعيين
-          </Button>
-        </Modal.Footer>
-      </Modal>*/}
-      {/***************************************************************************************** */}   
       <div className="flex">
       <button className="btn btn-danger flex items-center content-center text-center hover:scale-105 mr-1 mb-1 
       duration-300 py-1 px-8 rounded-full text-wrap
@@ -215,29 +218,22 @@ const Users = ({ rows, cols }) => {
       </button>
       <p className="mr-7 font-semibold text-lg">ربما من الصعب أن نسميه أملاً.. لكنه ليس أقلّ من أن يكون عناداً..</p>
       </div>
-
-      <Modall open={showModal} onClose={() => setShowModal(false)}>
-        <div className="text-center w-56">
-          <Trash size={56} className="mx-auto text-red-500" />
-          <div className="mx-auto my-4 w-48">
-            <h3 className="text-lg font-black text-gray-800">تأكيد إعادة التعيين</h3>
-            <p className="text-sm text-gray-500">
-              هل أنت متأكد أنك تريد إعادة تعين كافة الصور
-            </p>
-          </div>
-          <div className="flex gap-4">
-            <button className="btn btn-danger w-full" onClick={handleResetAll}>Delete</button>
-            <button
-              className="btn btn-light w-full"
-              onClick={() => setShowModal(false)}
-            >
-              إلغاء
-            </button>
-          </div>
-        </div>
-      </Modall> 
+       {/***************************************************************************************** */}
+       <Modal show={showModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          {/* <Modal.Title>تأكيد إعادة الضبط</Modal.Title> */}
+        </Modal.Header>
+        <Modal.Body>هل أنت متأكد أنك تريد إعادة تعيين كافة الصور؟</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            إلغاء
+          </Button>
+          <Button className="disabled" variant="danger" onClick={handleResetAll}>
+            إعادة تعيين
+          </Button>
+        </Modal.Footer>
+      </Modal>
       {/********************************************************************************************/}
-
       <div className="grid-container">
         {grid.map((pixel, index) => (
           <div
@@ -248,19 +244,32 @@ const Users = ({ rows, cols }) => {
               // height: `${pixelSize}px`,
               backgroundColor: pixel.image ? "transparent" : pixel.color,
               backgroundImage: pixel.image ? `url(${pixel.image})` : "none",
+              //backgroundSize: hoveredPixel === index ? '200%' : 'cover', // Zoom effect
+              backgroundPosition: hoveredPixel === index ? 'center' : 'center',
               backgroundSize: "cover",
-              backgroundPosition: "center",
+              //backgroundPosition: "center",
               // ref: { fileInput },
               // hover: "I love \"Sherlock Holmes\"",
+              transition: 'background-size 0.3s ease, background-position 0.3s ease', // Smooth transition
             }}
-            onClick={() => handlePixelClick(index)}
+            title={`Pixel ${index}`} // Add the tooltip text here
+            onClick={() => pixel.image && handleImageClick(pixel.image)} // Open image on click
+            onDoubleClick={() => handlePixelClick(index)} // Upload image on double-click
             onContextMenu={(e) => {
               e.preventDefault();
               handlePixelReset(index);
             }}
+            onMouseEnter={() => setHoveredPixel(index)} // Set hovered pixel index on mouse enter
+            onMouseLeave={() => setHoveredPixel(null)} // Reset on mouse leave
             //  onContextMenu={handleClick}
             // onClick={()=>handlePixelClick(index)} onContextMenu={handleClick}
-          ><span className="tooltiptext">{index}</span></div>
+          >
+          {/* Tooltip content */}
+          {/* <div className="tooltip">
+              {index} - {pixel.image ? 'Image' : 'No Image'}
+            </div> */}
+
+          </div>
           // <span className="tooltiptext">{index}</span>
         ))}
       </div>

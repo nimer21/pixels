@@ -18,6 +18,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SidebarNavMenu from './components/SidebarNavMenu/SidebarNavMenu'
 import SideBarNav from './components/SideBarNav/SideBarNav';
 import Grid from './components/Grid/Grid';
+import Home from './pages/Home';
 
 const App = () => {
   const screenWidth = window.innerWidth;
@@ -26,12 +27,12 @@ const App = () => {
 
   const rows = Math.floor(screenHeight / pixelSize);
   const cols = Math.floor(screenWidth / pixelSize);
-
+/*
   console.log("rows", rows); // rows 73
   console.log("cols", cols); // cols 153
   console.log("screenWidth", screenWidth); // screenWidth 1536
   console.log("screenHeight", screenHeight); // screenHeight 730
-
+*/
   return (
     <div>
       <Router>
@@ -40,8 +41,9 @@ const App = () => {
       <SideBar>
         {/* <Grid/> */}
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/users" element={<Users rows={33} cols={66}/>} />
+          <Route path="/" element={<Home />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/users" element={<Users rows={33} cols={67}/>} />
           {/* <Route path="/users" element={<Users rows={33} cols={67}/>} /> */}
           <Route path="/messages" element={<Messages />} />
           <Route path="/analytics" element={<Analytics />} />

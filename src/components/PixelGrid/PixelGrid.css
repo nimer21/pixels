@@ -13,7 +13,9 @@
     background-color: #ccc;
     border: 1px solid #fff;
     cursor: pointer;
-    display: flex;
+    /* display: flex; */
+    position: relative;
+    display: inline-block;
     flex-direction: row;
   }
 
@@ -44,6 +46,29 @@
   .pixel:hover .tooltiptext {
     visibility: visible;
   }
+
+  .pixel:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%; /* Position above the pixel */
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    transition: opacity 0.3s;
+  }
+  
 
   @media (max-width: 768px) {
     .pixel {

@@ -18,12 +18,12 @@ const routes = [
   },
   {
     path: "/users",
-    name: "إضافة البكسلات",
+    name: "إضافة الإعلانات",
     icon: <FaUser />,
   },
   {
     path: "/dashboard",
-    name: "فضاء البكسلات",
+    name: "المنتجات المحلية",
     icon: <FaUser />,
   },
   {
@@ -88,7 +88,7 @@ const routes = [
   },
   {
     path: "/saved",
-    name: "حجز البكسلات",
+    name: "حجز مساحة إعلان",
     icon: <AiFillHeart />,
   },
 ];
@@ -200,6 +200,8 @@ const SideBar = ({ children }) => {
                 <NavLink
                   to={route.path}
                   key={index}
+                  //className={(navData) => (navData.isActive ? "none" :"link")}
+                  //className={({isActive}) => (isActive ? "active" : 'link')}
                   className="link"
                   activeClassName="active"
                 >

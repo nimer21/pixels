@@ -49,8 +49,8 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   }, [isOpen]);
   return (
     <>
-      <div className="menu" onClick={toggleMenu}>
-        <div className="menu_item">
+      <div className="flex text-white py-1 px-2 border-r-4 border-solid border-transparent justify-between transition-all" onClick={toggleMenu}>
+        <div className="flex gap-3">
           <div className="icon">{route.icon}</div>
           <AnimatePresence>
             {isOpen && (
@@ -87,11 +87,11 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="menu_container"
+            className="flex flex-col"
           >
             {route.subRoutes.map((subRoute, i) => (
               <motion.div variants={menuItemAnimation} key={i} custom={i}>
-                <NavLink to={subRoute.path} className="link">
+                <NavLink to={subRoute.path} className="pl-5 border-b-2 border-solid border-white">
                   <div className="icon">{subRoute.icon}</div>
                   <motion.div className="link_text">{subRoute.name}</motion.div>
                 </NavLink>

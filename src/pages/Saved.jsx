@@ -77,6 +77,26 @@ useEffect(() => {
     } else  { //if(selectedPixels[index].color==="#ccc")
       setSelectedPixels([...selectedPixels, index]);
     }
+
+
+    /**
+     * Example Fix with Functional Update:
+      If you need to add or remove pixels from selectedPixels based on the current state,
+      you can use the functional form of setState:
+     */
+    /*
+    const handlePixelClick = (index) => {
+      setSelectedPixels((prevSelectedPixels) => {
+        if (prevSelectedPixels.includes(index)) {
+          return prevSelectedPixels.filter(i => i !== index);
+        } else {
+          return [...prevSelectedPixels, index];
+        }
+      });
+    };
+    */
+//************************************************************************************/
+    
 /*
     const newGrid = [...grid];
     newGrid[index] = {

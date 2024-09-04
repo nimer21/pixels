@@ -7,8 +7,6 @@ import { AiFillHeart, AiTwotoneFileExclamation } from "react-icons/ai";
 import { BsCartCheck } from "react-icons/bs";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import SidebarMenu from "./SidebarMenu";
-import "./Sidebar.css";
 
 const routes = [
   {
@@ -132,7 +130,7 @@ const SideBar = ({ children }) => {
 
   return (
     <>
-      <div className="main-conatiner">
+      <div className="flex">
         <motion.div
           animate={{
             width: isOpen ? "200px" : "45px",
@@ -143,9 +141,9 @@ const SideBar = ({ children }) => {
               damping: 10,
             },
           }}
-          className={`sidebar `}
+          className="bg-indigo-950 text-white h-lvh overflow-y-auto"
         >
-          <div className="top_section">
+          <div className="flex items-center justify-between py-4 px-3">
             <AnimatePresence>
               {isOpen && (
                 <motion.h1
@@ -153,19 +151,19 @@ const SideBar = ({ children }) => {
                   initial="hidden"
                   animate="show"
                   exit="hidden"
-                  className="logo"
+                  className="text-lg leading-none"
                 >
                   القائمة
                 </motion.h1>
               )}
             </AnimatePresence>
 
-            <div className="bars">
+            <div className="w-7">
               <FaBars/>
               {/* onClick={toggle} */}
             </div>
           </div>
-          <div className="search">
+          <div className="flex items-center mx-2 h-7 p-2">
             <div className="search_icon">
               <BiSearch />
             </div>
@@ -182,7 +180,7 @@ const SideBar = ({ children }) => {
               )}
             </AnimatePresence>
           </div>
-          <section className="routes">
+          <section className="mt-4 flex flex-col gap-1">
             {routes.map((route, index) => {
               if (route.subRoutes) {
                 return (
@@ -201,9 +199,11 @@ const SideBar = ({ children }) => {
                   to={route.path}
                   key={index}
                   //className={(navData) => (navData.isActive ? "none" :"link")}
-                  //className={({isActive}) => (isActive ? "active" : 'link')}
-                  className="link"
-                  activeClassName="active"
+                  className={({isActive}) => (isActive ? "flex  hover:bg-indigo-900 hover:border-l-4 hover:border-solid hover:border-white bg-slate-200 text-indigo-600 gap-3 border-l-4 border-solid border border-white" 
+                    : 'flex text-white gap-3 py-1 px-1 border-solid border-transparent transition-shadow hover:border-l-4 hover:border-solid hover:border-white hover:bg-indigo-900 hover:transition-shadow')}
+                  //className="flex text-white gap-3 py-1 px-1 border-solid border border-transparent
+                  //transition-all hover:border-l-4 hover:border-solid hover:border-white hover:bg-indigo-900 hover:transition-all"
+                  //activeClassName="!border-r-4 !border-solid !border-white"
                 >
                   <div className="icon">{route.icon}</div>
                   <AnimatePresence>
@@ -213,7 +213,7 @@ const SideBar = ({ children }) => {
                         initial="hidden"
                         animate="show"
                         exit="hidden"
-                        className="link_text"
+                        className="whitespace-nowrap text-base"
                       >
                         {route.name}
                       </motion.div>
@@ -225,7 +225,7 @@ const SideBar = ({ children }) => {
           </section>
         </motion.div>
 
-        <main>{children}</main>
+        <main className="p-1 items-center content-center justify-center w-full">{children}</main>
       </div>
     </>
   );

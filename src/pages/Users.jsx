@@ -6,8 +6,8 @@ const Users = ({ rows, cols }) => {
   const localStorageKey = 'pixelGridImages';
   // Load grid from local storage or initialize it
 
-  const fixedCols = 90; // Number of columns    77
-  const fixedRows = 80; // Number of rows       65  => 5005
+  const fixedCols = 85; // Number of columns    77
+  const fixedRows = 85; // Number of rows       65  => 5005
   const [pixelSize, setPixelSize] = useState(0);
   const initialGrid = JSON.parse(localStorage.getItem(localStorageKey)) || 
                       Array(fixedRows * fixedCols).fill({ color: '#ccc', image: null });
@@ -16,8 +16,8 @@ const Users = ({ rows, cols }) => {
 
   useEffect(() => {
     const calculatePixelSize = () => {
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
+      const screenWidth = window.innerWidth-45;
+      const screenHeight = window.innerHeight-45;
       console.log("screenWidth=====",screenWidth);
       console.log("screenHeight=====",screenHeight);
 
@@ -110,7 +110,7 @@ const Users = ({ rows, cols }) => {
   return (
     <div>
       <div
-        className="grid-container"
+        //className="grid-container"
         style={{
           display: 'grid',
           gridTemplateColumns: `repeat(${fixedCols}, ${pixelSize}px)`,
@@ -133,7 +133,7 @@ const Users = ({ rows, cols }) => {
               backgroundPosition: pixel.backgroundPosition || 'center',
               transition: 'background-size 0.3s ease, background-position 0.3s ease',
             }}
-            title={`Pixel ${index}`} // Add the tooltip text here
+            title={`مربع ${index}`} // Add the tooltip text here
             //onClick={() => pixel.image && handleImageClick(pixel.image)} // Open image on click
             onClick={() => handlePixelColorClick(index)} // Open image on click
             onDoubleClick={() => handlePixelClick(index)} // Upload image on double-click

@@ -19,6 +19,8 @@ import SidebarNavMenu from './components/SidebarNavMenu/SidebarNavMenu'
 import SideBarNav from './components/SideBarNav/SideBarNav';
 import Grid from './components/Grid/Grid';
 import Home from './pages/Home';
+import Rent from './pages/Rent';
+import Idea from './pages/Idea';
 
 const App = () => {
   const screenWidth = window.innerWidth;
@@ -43,13 +45,15 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/users" element={<Users rows={33} cols={67}/>} />
+          <Route path="/users" element={<Users rows={rows} cols={cols}/>} />
           {/* <Route path="/users" element={<Users rows={33} cols={67}/>} /> */}
           <Route path="/messages" element={<Messages />} />
+          <Route path="/rent" element={<Rent />} />
+          <Route path="/idea" element={<Idea />} />
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/file-manager" element={<FileManager />} />
           <Route path="/order" element={<Order />} />
-          <Route path="/saved" element={<Saved rows={33} cols={67} />} />
+          <Route path="/saved" element={<Saved rows={rows} cols={cols} />} />
           <Route path="/settings" element={<Setting />} />
 
           <Route path="*" element={<> not found</>} />

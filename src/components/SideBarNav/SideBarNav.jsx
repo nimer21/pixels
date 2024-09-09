@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './SideBarNav.css'
+//import './SideBarNav.css'
 import { FaWallet } from "react-icons/fa";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'

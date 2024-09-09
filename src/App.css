@@ -21,9 +21,9 @@ code {
 ul {
   list-style: none;
 }
-li {
+/* li {
   list-style: none;
-}
+} */
 a {
   text-decoration: none;
 }

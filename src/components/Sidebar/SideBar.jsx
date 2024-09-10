@@ -230,7 +230,9 @@ const SideBar = ({ children }) => {
 //************************************************************************************
 function refreshPage(){ 
   window.location.reload(); 
-  //window.location.href = "/";
+  window.location.href = "/";
+  //navigate("/");
+  //return <Navigate to='/' replace/>
 }
   const handleLogout = async () => {
     try {
@@ -242,16 +244,13 @@ function refreshPage(){
       if (data.success) {        
         toast.success(data.message);
         useDispatch(setUserDetails(null));
-        //navigate("/");
-        return <Navigate to='/Login' replace/>
-        //window.location.reload();
       } else {
         //console.error("Failed to log out");
         toast.error(data.message);
       }
       //localStorage.removeItem("token");
       //cookies.remove('token', { domain: COOKIE_DOMAIN, path: COOKIE_PATH })
-      new Cookies().remove('token', { domain: "payment-fs-ecommerce.vercel.app", path: '/' })
+      //new Cookies().remove('token', { domain: "payment-fs-ecommerce.vercel.app", path: '/' })
       
       //window.location.href = "/";
     } catch (error) {

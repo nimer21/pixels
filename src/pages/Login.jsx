@@ -27,9 +27,8 @@ const Login = () => {
 
   const handelSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login Data", data);
+    //console.log("Login Data", data);
     // Add your code here to submit the form data
-    console.log("Form Submitted Successfully");
     const dataResponse = await fetch(SummaryApi.signIn.url, {
       method: SummaryApi.signIn.method,
       credentials:'include',

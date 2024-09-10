@@ -92,7 +92,7 @@ const SignUp = () => {
               <div className="text-xs bg-opacity-80 bg-slate-200 pb-4 pt-2 cursor-pointer text-center absolute bottom-0 w-full">
                   تحميل الصورة
               </div>
-                  <input type='file' className='  ' onChange={handelUploadPic}/>
+                  <input type='file' className='hidden' onChange={handelUploadPic}/>
               </label>
               
           </form>

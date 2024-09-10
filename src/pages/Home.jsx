@@ -74,20 +74,20 @@ const Home = () => {
             <Form.Label>الفقرة التعريفية</Form.Label>
             <Form.Control
               as="textarea"
-              rows={6}
+              rows={3}
               //cols={2}
               disabled={true}
-              placeholder="أدخل نبذة عن المنتج / الشركة"
+              //placeholder="أدخل نبذة عن المنتج / الشركة"
               name="description"
               //resize= "none"
               no-resize
-              className="p-2 bg-slate-100 border rounded"
+              className="p-2 bg-slate-100 border rounded max-h-32"
             />
 
             <Form.Label className="mt-2">رابط الشركة</Form.Label>
             <Form.Control
               type="text"
-              placeholder="رابط الموقع"
+              //placeholder="رابط الموقع"
               disabled={true}
               name="url"
               autoFocus
@@ -100,6 +100,7 @@ const Home = () => {
           {selectedImage ? (
             <img
               src={selectedImage}
+              className="rounded-md"
               alt="Selected"
               style={{ width: "50%", height: "auto", marginRight:"9px" }}
             />

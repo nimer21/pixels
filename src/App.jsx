@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./App.css";
 import SideBar from "./components/Sidebar/SideBar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -21,6 +21,15 @@ import Grid from './components/Grid/Grid';
 import Home from './pages/Home';
 import Rent from './pages/Rent';
 import Idea from './pages/Idea';
+import Login from './pages/Login';
+import SummaryApi from './common';
+import { useDispatch } from 'react-redux';
+import { setUserDetails } from "./store/userSlice";
+import Context from './context/index';
+import SignUp from './pages/SignUp';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import ProtectedRoutes from './auth/ProtectedRoutes';
 
 const App = () => {
   const screenWidth = window.innerWidth;
@@ -35,8 +44,39 @@ const App = () => {
   console.log("screenWidth", screenWidth); // screenWidth 1536
   console.log("screenHeight", screenHeight); // screenHeight 730
 */
+const dispatch = useDispatch();
+
+const fetchUserDetials = async()=> {
+  const dataResponse = await fetch(SummaryApi.current_user.url,{
+    method: SummaryApi.current_user.method,
+    credentials : 'include',
+  })
+  const dataApi = await dataResponse.json();
+  //console.log('data-user:', dataResponse);
+  if(dataApi.success) {
+    //dispatch({type: 'SET_USER_DETAILS', payload: dataApi.data});
+    dispatch(setUserDetails(dataApi.data));
+    //SummaryApi.current_uer.data = dataApi.data;
+
+  }
+}
+
+useEffect(()=> {
+  /**user Details */
+  fetchUserDetials();
+},[]);
+
   return (
     <div>
+      <Context.Provider value={{
+      fetchUserDetials, // user detail fetch
+    }}>
+      <ToastContainer
+      position="top-center"
+      autoClose={2000}
+      closeOnClick
+      draggable={false}      
+      />
       <Router>
       {/* <SidebarNavMenu> */}
       {/* <SideBarNav> */}
@@ -45,7 +85,9 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/users" element={<Users rows={rows} cols={cols}/>} />
+          
+          <Route path="/users" element={<ProtectedRoutes><Users rows={rows} cols={cols}/></ProtectedRoutes>} />
+          
           {/* <Route path="/users" element={<Users rows={33} cols={67}/>} /> */}
           <Route path="/messages" element={<Messages />} />
           <Route path="/rent" element={<Rent />} />
@@ -55,6 +97,8 @@ const App = () => {
           <Route path="/order" element={<Order />} />
           <Route path="/saved" element={<Saved rows={rows} cols={cols} />} />
           <Route path="/settings" element={<Setting />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
 
           <Route path="*" element={<> not found</>} />
         </Routes>
@@ -62,6 +106,7 @@ const App = () => {
       {/* </SideBarNav> */}
         {/* </SidebarNavMenu> */}
       </Router>
+      </Context.Provider>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import "./SideBar.css"
 
 const menuAnimation = {
   hidden: {
@@ -49,8 +50,8 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   }, [isOpen]);
   return (
     <>
-      <div className="flex text-white py-1 px-2 border-r-4 border-solid border-transparent justify-between transition-all" onClick={toggleMenu}>
-        <div className="flex gap-3">
+      <div className="menu" onClick={toggleMenu}>
+        <div className="menu_item">
           <div className="icon">{route.icon}</div>
           <AnimatePresence>
             {isOpen && (
@@ -87,11 +88,11 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
             initial="hidden"
             animate="show"
             exit="hidden"
-            className="flex flex-col"
+            className="menu_container"
           >
             {route.subRoutes.map((subRoute, i) => (
               <motion.div variants={menuItemAnimation} key={i} custom={i}>
-                <NavLink to={subRoute.path} className="pl-5 border-b-2 border-solid border-white">
+                <NavLink to={subRoute.path} className="link">
                   <div className="icon">{subRoute.icon}</div>
                   <motion.div className="link_text">{subRoute.name}</motion.div>
                 </NavLink>

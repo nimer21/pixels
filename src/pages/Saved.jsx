@@ -412,16 +412,24 @@ const Saved = ({ rows, cols }) => {
       <Modal
         show={showModal2}
         onHide={handleCloseModal}
+        animation={true}
         size="lg"
+        keyboard={false} //Close the modal when escape key is pressed
+        scrollable={false}
+        restoreFocus={true}
+        //dialogClassName="modal-80w"
         aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
           <Modal.Title></Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body
+         //max-height= {calc('100vh - 210px')}
+         //overflow-y= {auto}
+         >
           هل أنت متأكد أنك تريد حجز المربعات؟{" "}
- <div className="grid grid-cols-6 border border-solid bg-primary font-bold text-white">
+ <div className="grid grid-cols-6 border border-solid bg-primary font-bold text-white rounded-sm p-1">
   {selectedPixels.map((number) => <div>{number}</div>)}</div>
 
           
@@ -448,13 +456,13 @@ const Saved = ({ rows, cols }) => {
                   onChange={handleImageChange}
                 />
               </Form.Group>
-              <div className="mt-2 w-32 h-32 mx-auto relative">
+              <div className="mt-2 w-32 h-32 mx-auto relative overflow-hidden">
                 <img
                   src={
                     selectedImage || "https://picsum.photos/400/300?random=21"
                   }
                   alt="Advertising Image"
-                  className="rounded-md"
+                  className="object-cover rounded-md hover:scale-105 duration-500"
                 />
               </div>
             </div>
@@ -507,7 +515,7 @@ const Saved = ({ rows, cols }) => {
                 required
                 //resize= "none"
                 no-resize
-                className="p-2 bg-slate-100 border rounded"
+                className="p-2 bg-slate-100 border rounded max-h-32"
               />
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">

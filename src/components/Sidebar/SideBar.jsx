@@ -230,7 +230,7 @@ const SideBar = ({ children }) => {
 //************************************************************************************
 function refreshPage(){ 
   window.location.reload(); 
-  window.location.href = "/";
+  //window.location.href = "/";
 }
   const handleLogout = async () => {
     try {
@@ -251,7 +251,7 @@ function refreshPage(){
       }
       //localStorage.removeItem("token");
       //cookies.remove('token', { domain: COOKIE_DOMAIN, path: COOKIE_PATH })
-      //new Cookies().remove('user', { domain: "http://localhost:5173", path: '/' })
+      new Cookies().remove('token', { domain: "payment-fs-ecommerce.vercel.app", path: '/' })
       
       //window.location.href = "/";
     } catch (error) {

@@ -15,7 +15,6 @@ import SummaryApi from "../../common";
 import { toast } from "react-toastify";
 import SidebarMenu from "./SidebarMenu";
 import { setUserDetails } from "../../store/userSlice";
-import Cookies from "universal-cookie";
 
 const routes = [
   {

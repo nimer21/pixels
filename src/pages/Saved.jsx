@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import "../components/PixelGrid/./PixelGrid.css";
 import { Button, Form, Modal } from "react-bootstrap";
 import countries from "./../helpers/countries";
+import { useSelector } from "react-redux";
 //************************************************************************************ */
 const Saved = ({ rows, cols }) => {
   const localStorageKey = "pixelGridImages";
+
+  const user = useSelector(state => state?.user?.user);
 
   const fixedCols = 85; // Number of columns    77
   const fixedRows = 85; // Number of rows       65  => 5005
@@ -38,8 +41,6 @@ const Saved = ({ rows, cols }) => {
   const [selectedPixels, setSelectedPixels] = useState([]);
 
   const [showModal, setShowModal] = useState(false);
-
-  const [showModal2, setShowModal2] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [url, setUrl] = useState("");
@@ -49,6 +50,8 @@ const Saved = ({ rows, cols }) => {
   const [data, setData] = useState({
     selectedSquares: "",
     advImage: [],
+    email: "",
+    mobile:"",
     country: "",
     url: "",
     description: "",
@@ -71,6 +74,8 @@ const Saved = ({ rows, cols }) => {
     if (
       // !selectedSquares ||
       !advImage.length ||
+      !email ||
+      !mobile ||
       !country ||
       !url ||
       !description
@@ -211,17 +216,14 @@ const Saved = ({ rows, cols }) => {
   //************************************************************************************ */
   const handleSubmit = (e) => {
     e.preventDefault();
-    /*
-  if (!selectedImage || !selectedCountry) {
-    alert('Please upload an image and select a country.');
-    return;
-  }*/
 
     const { selectedSquares, advImage, country, url, description } = data;
 
     if (
       // !selectedSquares ||
       !advImage.length ||
+      !email ||
+      !mobile ||
       !country ||
       !url ||
       !description
@@ -229,24 +231,6 @@ const Saved = ({ rows, cols }) => {
       alert("جميع الحقول مطلوبة");
       return;
     }
-
-    // if (!data.advImage || !data.country) {
-    //   alert("Please upload an image and select a country.");
-    //   return;
-    // }
-
-    /*
-  const newGrid = [...grid];
-
-  selectedPixels.forEach(index => {
-    newGrid[index] = {
-      ...newGrid[index],
-      //image: selectedImage,
-      country: selectedCountry,
-      color: '#ff0',
-      name: "Ahmed"
-    };
-  });*/
 
     const newGrid2 = [...gridTemp];
 
@@ -257,11 +241,12 @@ const Saved = ({ rows, cols }) => {
         //country: selectedCountry,
         country: data.country,
         color: "#ff0",
-        //url:url,
+        email: data.email,
+        mobile:data.mobile,
         url: data.url,
         //description: desc,
         description: data.description,
-        name: "Ahmed",
+        name: user?.name,
         date: new Date().toLocaleString() + "",
       };
     });
@@ -275,6 +260,8 @@ const Saved = ({ rows, cols }) => {
     setData({
       selectedSquares: "",
       advImage: [],
+      email:"",
+      mobile:"",
       country: "",
       url: "",
       description: "",
@@ -292,15 +279,17 @@ const Saved = ({ rows, cols }) => {
       alert("برجاء إختيار مربع واحد على الأقل.");
       return;
     }
-    setShowModal2(true);
+    setShowModal(true);
   };
+  //************************************************************************************
 
   const handleCloseModal = () => {
-    setShowModal2(false);
+    setShowModal(false);
     // setSelectedImage(null);
     // setSelectedCountry('');
     // setSelectedPixels([]); // Take Care Nimer
   };
+  //************************************************************************************
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -333,7 +322,7 @@ const Saved = ({ rows, cols }) => {
   //************************************************************************************
   const handleReservedPixels = (selectedIndexes) => {
     // Here you can send the selectedIndexes to your server for reservation
-    console.log("Reserved Pixels:", selectedIndexes);
+    //console.log("Reserved Pixels:", selectedIndexes);
     setShowModal(false);
   };
   //************************************************************************************ */
@@ -342,6 +331,8 @@ const Saved = ({ rows, cols }) => {
     newGrid[index] = {
       ...newGrid[index],
       image: null,
+      email:"",
+      mobile:"",
       country: null,
       color: null,
       url: "",
@@ -366,7 +357,6 @@ const Saved = ({ rows, cols }) => {
     localStorage.setItem(localStorageKey, JSON.stringify(grid));
   }, [grid]);
   //************************************************************************************ */
-  // return <div className="grid-container">{createGrid()}</div>;
 
   return (
     <>
@@ -383,34 +373,10 @@ const Saved = ({ rows, cols }) => {
           إرسال المربعات المحجوزة
         </Button>
       </div>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title></Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          هل أنت متأكد أنك تريد حجز البكسلات؟{" "}
-          {selectedGrid.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-          <h4 className="m-2">البلد: </h4>
-          <input type="text" placeholder="Enter text" />
-          <hr />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={() => setShowModal(false)}>
-            إلغاء
-          </Button>
-          <Button
-            variant="success"
-            onClick={() => handleReservedPixels(selectedGrid)}
-          >
-            إرسال
-          </Button>
-        </Modal.Footer>
-      </Modal>
 
       <Modal
-        show={showModal2}
+        show={showModal}
+        //onHide={() => setShowModal(false)}
         onHide={handleCloseModal}
         animation={true}
         size="lg"
@@ -432,21 +398,10 @@ const Saved = ({ rows, cols }) => {
  <div className="grid grid-cols-6 border border-solid bg-primary font-bold text-white rounded-sm p-1">
   {selectedPixels.map((number) => <div>{number}</div>)}</div>
 
-          
-
-          {/* {selectedPixels.map((item) => (
-            <p
-              className="bg-primary
-              font-bold text-red-700"
-              key={item}
-            >
-              {item}
-            </p>
-          ))} */}
           <Form
             onSubmit={handleSubmit}
-            className="grid p-4 gap-2 overflow-y-scroll h-full pb-5"
-          >
+            className="grid p-4 gap-2 overflow-y-scroll h-full pb-5">
+
             <div className="flex">
               <Form.Group controlId="formImageUpload">
                 <Form.Label>تحميل صورة الإعلان</Form.Label>
@@ -456,6 +411,7 @@ const Saved = ({ rows, cols }) => {
                   onChange={handleImageChange}
                 />
               </Form.Group>
+
               <div className="mt-2 w-32 h-32 mx-auto relative overflow-hidden">
                 <img
                   src={
@@ -467,8 +423,41 @@ const Saved = ({ rows, cols }) => {
               </div>
             </div>
 
+            <div className="flex items-center">
+            <Form.Label>الإيميل:</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="البريد الإلكتروني"
+                //onChange={handleUrlChange}
+                //value={data.url}
+                name="email"
+                value={data.email}
+                onChange={handleOnChange}
+                required
+                autoFocus
+                className="p-2 bg-slate-100 border rounded w-3/6"
+              >
+              </Form.Control>
+
+              <Form.Label>الهاتف:</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="رقم الهاتف"
+                //onChange={handleUrlChange}
+                //value={data.url}
+                name="mobile"
+                value={data.mobile}
+                onChange={handleOnChange}
+                required
+                autoFocus
+                className="p-2 bg-slate-100 border rounded w-3/6"
+              >
+              </Form.Control>
+              </div>
+              
             <Form.Group controlId="formCountrySelect">
-              <Form.Label>إختار الدولة</Form.Label>
+            <div className="flex items-center">
+              <Form.Label>الدولة: </Form.Label>
               <Form.Control
                 as="select"
                 value={data.country}
@@ -487,7 +476,7 @@ const Saved = ({ rows, cols }) => {
                 {/* Add more countries as needed */}
               </Form.Control>
 
-              <Form.Label>رابط الشركة</Form.Label>
+              <Form.Label>الرابط: </Form.Label>
               <Form.Control
                 type="text"
                 placeholder="رابط الموقع"
@@ -500,8 +489,9 @@ const Saved = ({ rows, cols }) => {
                 autoFocus
                 className="p-2 bg-slate-100 border rounded"
               >
-                {/* Add more countries as needed */}
               </Form.Control>
+              </div>
+            </Form.Group>
 
               <Form.Label>الفقرة التعريفية</Form.Label>
               <Form.Control
@@ -516,8 +506,8 @@ const Saved = ({ rows, cols }) => {
                 //resize= "none"
                 no-resize
                 className="p-2 bg-slate-100 border rounded max-h-32"
-              />
-            </Form.Group>
+              />              
+
             <Button variant="primary" type="submit" className="mt-3">
               إرسال
             </Button>

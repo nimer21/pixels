@@ -100,9 +100,9 @@ const Home = () => {
           {selectedImage ? (
             <img
               src={selectedImage}
-              className="rounded-md"
+              className="rounded-md object-cover"
               alt="Selected"
-              style={{ width: "50%", height: "auto", marginRight:"9px" }}
+              style={{ width: "200px", height: "300px", marginRight:"9px" }}
             />
           ) : (
             "No image selected."

@@ -217,7 +217,7 @@ const Saved = ({ rows, cols }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { selectedSquares, advImage, country, url, description } = data;
+    const { selectedSquares, advImage,email,mobile, country, url, description } = data;
 
     if (
       // !selectedSquares ||

@@ -6,8 +6,8 @@ const Users = ({ rows, cols }) => {
   const localStorageKey = 'pixelGridImages';
   // Load grid from local storage or initialize it
 
-  const fixedCols = 85; // Number of columns    77
-  const fixedRows = 85; // Number of rows       65  => 5005
+  const fixedCols = 95; // Number of columns    77
+  const fixedRows = 75; // Number of rows       65  => 5005
   const [pixelSize, setPixelSize] = useState(0);
   const initialGrid = JSON.parse(localStorage.getItem(localStorageKey)) || 
                       Array(fixedRows * fixedCols).fill({ color: '#ccc', image: null });
@@ -18,14 +18,14 @@ const Users = ({ rows, cols }) => {
     const calculatePixelSize = () => {
       const screenWidth = window.innerWidth-45;
       const screenHeight = window.innerHeight-45;
-      console.log("screenWidth=====",screenWidth);
-      console.log("screenHeight=====",screenHeight);
+      //console.log("screenWidth=====",screenWidth);
+      //console.log("screenHeight=====",screenHeight);
 
       const calculatedPixelWidth = Math.floor(screenWidth / fixedCols);
       const calculatedPixelHeight = Math.floor(screenHeight / fixedRows);
 
       const size = Math.min(calculatedPixelWidth, calculatedPixelHeight);
-      console.log("Size=====",size);
+      //console.log("Size=====",size);
       setPixelSize(size);
 
       /*const newGrid = Array(fixedCols * fixedRows).fill({ color: '#ccc', image: null });

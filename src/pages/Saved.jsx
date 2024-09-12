@@ -9,8 +9,8 @@ const Saved = ({ rows, cols }) => {
 
   const user = useSelector(state => state?.user?.user);
 
-  const fixedCols = 85; // Number of columns    77
-  const fixedRows = 85; // Number of rows       65  => 5005
+  const fixedCols = 95; // Number of columns    77
+  const fixedRows = 75; // Number of rows       65  => 5005
   const [pixelSize, setPixelSize] = useState(0);
   // Load grid from local storage or initialize it
   const initialGrid =
@@ -69,7 +69,7 @@ const Saved = ({ rows, cols }) => {
 
   const handleSubmit2 = async (e) => {
     e.preventDefault();
-    console.log("data", data);
+    //console.log("data", data);
     const { selectedSquares, advImage, country, url, description } = data;
     if (
       // !selectedSquares ||
@@ -128,22 +128,22 @@ const Saved = ({ rows, cols }) => {
   };
   //************************************************************************************ */
   useEffect(() => {
-    console.log("Selected Pixels changed:", selectedPixels);
+    //console.log("Selected Pixels changed:", selectedPixels);
     // Perform any actions that depend on the updated selectedPixels here
   }, [selectedPixels]);
 
   useEffect(() => {
     const calculatePixelSize = () => {
-      const screenWidth = window.innerWidth - 45;
-      const screenHeight = window.innerHeight - 45;
-      console.log("screenWidth=====", screenWidth);
-      console.log("screenHeight=====", screenHeight);
+      const screenWidth = window.innerWidth-45;
+      const screenHeight = window.innerHeight-45;
+      //console.log("screenWidth=====", screenWidth);
+      //console.log("screenHeight=====", screenHeight);
 
       const calculatedPixelWidth = Math.floor(screenWidth / fixedCols);
       const calculatedPixelHeight = Math.floor(screenHeight / fixedRows);
 
       const size = Math.min(calculatedPixelWidth, calculatedPixelHeight);
-      console.log("Size=====", size);
+      //console.log("Size=====", size);
       setPixelSize(size);
 
       /*const newGrid = Array(fixedCols * fixedRows).fill({ color: '#ccc', image: null });
@@ -198,9 +198,9 @@ const Saved = ({ rows, cols }) => {
     };
     setGridTemp(newGrid);
 
-    console.log("selectedPixels index:", selectedPixels); // Log the index of the selected pixel
-    console.log("Selected grid color:", grid[index].color); // Log the index of the selected pixel
-    console.log("Selected gridTemp color:", gridTemp[index].color); // Log the index of the selected pixel
+    //console.log("selectedPixels index:", selectedPixels); // Log the index of the selected pixel
+    //console.log("Selected grid color:", grid[index].color); // Log the index of the selected pixel
+    //console.log("Selected gridTemp color:", gridTemp[index].color); // Log the index of the selected pixel
 
     /*
     // assigning the list to temp variable
@@ -396,7 +396,7 @@ const Saved = ({ rows, cols }) => {
          >
           هل أنت متأكد أنك تريد حجز المربعات؟{" "}
  <div className="grid grid-cols-6 border border-solid bg-primary font-bold text-white rounded-sm p-1">
-  {selectedPixels.map((number) => <div>{number}</div>)}</div>
+  {selectedPixels.map((number) => <div key={number}>{number}</div>)}</div>
 
           <Form
             onSubmit={handleSubmit}

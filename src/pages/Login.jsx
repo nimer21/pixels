@@ -40,7 +40,7 @@ const Login = () => {
 
     const dataApi = await dataResponse.json();
     if (dataApi.success) {
-      console.log("dataApi.success");
+      //console.log("dataApi.success");
       toast.success(dataApi.message);
       navigate("/");
       fetchUserDetials();

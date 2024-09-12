@@ -1,6 +1,6 @@
 import React, { Children } from 'react'
 import {Navigate} from 'react-router-dom';
-import Cookie from 'universal-cookie';
+//import Cookie from 'universal-cookie';
 //import Cookies from 'js-cookie';
 
 export default function ProtectedRoutes({ children}) {

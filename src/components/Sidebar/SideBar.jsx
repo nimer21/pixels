@@ -298,6 +298,7 @@ function refreshPage(){
                     <img
                     src={user?.profilePic}
                     alt={user?.name}
+                    title={user?.name}
                     className="hidden lg:block md:block lg:w-20 lg:h-20 rounded-full object-cover mb-4"
                     />
                 ) : 

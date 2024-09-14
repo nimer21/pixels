@@ -136,14 +136,14 @@ const Saved = ({ rows, cols }) => {
     const calculatePixelSize = () => {
       const screenWidth = window.innerWidth-45;
       const screenHeight = window.innerHeight-45;
-      //console.log("screenWidth=====", screenWidth);
-      //console.log("screenHeight=====", screenHeight);
+      console.log("screenWidth=====", screenWidth);
+      console.log("screenHeight=====", screenHeight);
 
       const calculatedPixelWidth = Math.floor(screenWidth / fixedCols);
       const calculatedPixelHeight = Math.floor(screenHeight / fixedRows);
 
       const size = Math.min(calculatedPixelWidth, calculatedPixelHeight);
-      //console.log("Size=====", size);
+      console.log("Size=====", size);
       setPixelSize(size);
 
       /*const newGrid = Array(fixedCols * fixedRows).fill({ color: '#ccc', image: null });
@@ -217,11 +217,12 @@ const Saved = ({ rows, cols }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const { selectedSquares, advImage,email,mobile, country, url, description } = data;
+    const { selectedSquares, advCoName, advImage,email,mobile, country, url, description } = data;
 
     if (
       // !selectedSquares ||
       !advImage.length ||
+      !advCoName ||
       !email ||
       !mobile ||
       !country ||
@@ -239,6 +240,7 @@ const Saved = ({ rows, cols }) => {
         ...newGrid2[index],
         //image: selectedImage,
         //country: selectedCountry,
+        advCoName: data.advCoName,
         country: data.country,
         color: "#ff0",
         email: data.email,
@@ -331,6 +333,7 @@ const Saved = ({ rows, cols }) => {
     newGrid[index] = {
       ...newGrid[index],
       image: null,
+      advCoName: null,
       email:"",
       mobile:"",
       country: null,
@@ -411,7 +414,6 @@ const Saved = ({ rows, cols }) => {
                   onChange={handleImageChange}
                 />
               </Form.Group>
-
               <div className="mt-2 w-32 h-32 mx-auto relative overflow-hidden">
                 <img
                   src={
@@ -421,39 +423,21 @@ const Saved = ({ rows, cols }) => {
                   className="object-cover rounded-md hover:scale-105 duration-500"
                 />
               </div>
-            </div>
-
-            <div className="flex items-center">
-            <Form.Label>الإيميل:</Form.Label>
+            </div>            
+            <Form.Label>إسم الشركة / المنتج: </Form.Label>
               <Form.Control
-                type="email"
-                placeholder="البريد الإلكتروني"
+                type="text"
+                placeholder="إسم الشركة / المنتج"
                 //onChange={handleUrlChange}
                 //value={data.url}
-                name="email"
-                value={data.email}
+                name="advCoName"
+                value={data.advCoName}
                 onChange={handleOnChange}
                 required
                 autoFocus
-                className="p-2 bg-slate-100 border rounded w-3/6"
+                className="p-2 bg-slate-100 border rounded"
               >
-              </Form.Control>
-
-              <Form.Label>الهاتف:</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="رقم الهاتف"
-                //onChange={handleUrlChange}
-                //value={data.url}
-                name="mobile"
-                value={data.mobile}
-                onChange={handleOnChange}
-                required
-                autoFocus
-                className="p-2 bg-slate-100 border rounded w-3/6"
-              >
-              </Form.Control>
-              </div>
+              </Form.Control>        
               
             <Form.Group controlId="formCountrySelect">
             <div className="flex items-center">
@@ -469,7 +453,7 @@ const Saved = ({ rows, cols }) => {
                 {countries.map((ele, index) => {
                   return (
                     <option key={ele.value + index} value={ele.value}>
-                      {ele.label}
+                      {ele.name}
                     </option>
                   );
                 })}
@@ -506,7 +490,39 @@ const Saved = ({ rows, cols }) => {
                 //resize= "none"
                 no-resize
                 className="p-2 bg-slate-100 border rounded max-h-32"
-              />              
+              />
+
+               <div className="flex items-center">
+            <Form.Label>الإيميل:</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="البريد الإلكتروني"
+                //onChange={handleUrlChange}
+                //value={data.url}
+                name="email"
+                value={data.email}
+                onChange={handleOnChange}
+                required
+                autoFocus
+                className="p-2 bg-slate-100 border rounded w-3/6"
+              >
+              </Form.Control>
+
+              <Form.Label>الهاتف:</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="رقم الهاتف"
+                //onChange={handleUrlChange}
+                //value={data.url}
+                name="mobile"
+                value={data.mobile}
+                onChange={handleOnChange}
+                required
+                autoFocus
+                className="p-2 bg-slate-100 border rounded w-3/6"
+              >
+              </Form.Control>
+              </div>          
 
             <Button variant="primary" type="submit" className="mt-3">
               إرسال

@@ -18,18 +18,23 @@ const Home = () => {
   const [showModalImage, setShowModalImage] = useState(false);
   const [showModalImageLG, setShowModalImageLG] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedPixel, setSelectedPixel] = useState();
 
   /********************************************************************************************************** */
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setShowModalImage(true);
+  const handleImageClick = (index) => {
+    //console.log("setSelectedPixel=>  ", grid[index].email);
+    setSelectedPixel(index);
+    //setSelectedImage(image);
+    setShowModalImageLG(true);
     //console.log("image clicked");
   };
   /**********************************************************************************************************/
   const handleCloseModal = () => {
     setShowModalImage(false);
+    setShowModalImageLG(false);
     setSelectedImage(null);
+    setSelectedPixel(null);
   };
   /********************************************************************************************************** */
   useEffect(() => {
@@ -55,6 +60,7 @@ const Home = () => {
 
     return () => window.removeEventListener("resize", calculatePixelSize);
   }, [fixedCols, fixedRows]);
+
   /***************************************************************************************** */
   return (
     <div>
@@ -68,41 +74,51 @@ const Home = () => {
         <Modal.Body className="flex justify-between">
           <div className="w-9/12">
             <p className="uppercase tracking-wide text-lg text-indigo-500 font-extrabold text-center">
-              إسم الشركة
+              {grid[selectedPixel]?.advCoName}
             </p>
-
-            <Form.Label>الفقرة التعريفية</Form.Label>
+            <Form.Label></Form.Label>
             <Form.Control
               as="textarea"
-              rows={3}
+              rows={6}
               //cols={2}
               disabled={true}
               //placeholder="أدخل نبذة عن المنتج / الشركة"
+              placeholder={grid[selectedPixel]?.description}
               name="description"
               //resize= "none"
               no-resize
               className="p-2 bg-slate-100 border rounded max-h-32"
             />
+            <a href={grid[selectedPixel]?.url} 
+            className="flex border border-solid mt-20 content-center items-center justify-center" 
+            target="_blank">إضغط&nbsp;
+            <p className="text-red-600 inline-block font-semibold">هنـا&nbsp;</p>
+            للإنتقال للموقع</a>
 
-            <Form.Label className="mt-2">رابط الشركة</Form.Label>
+            {/**
+             * <Form.Label className="mt-2"></Form.Label>
             <Form.Control
               type="text"
               //placeholder="رابط الموقع"
+              //placeholder={grid[selectedPixel]?.url}
               disabled={true}
               name="url"
+              direction= "rtl"
+              text-align= "left"
+              value={grid[selectedPixel]?.url}          
               autoFocus
               className="p-2 bg-slate-100 border rounded"
             >
-              {/* Add more countries as needed */}
             </Form.Control>
+             */}
           </div>
 
-          {selectedImage ? (
+          {selectedPixel ? (
             <img
-              src={selectedImage}
+              src={grid[selectedPixel]?.image}
               className="rounded-md object-cover"
               alt="Selected"
-              style={{ width: "200px", height: "300px", marginRight:"9px" }}
+              style={{ width: "250px", height: "350px", marginRight:"9px" }}
             />
           ) : (
             "No image selected."
@@ -120,32 +136,56 @@ const Home = () => {
           {/* <Modal.Title>معاينة الصورة</Modal.Title> */}
         </Modal.Header>
         <Modal.Body className="flex justify-between">
-        {selectedImage ? (
+
+
+            <Form.Label className=""></Form.Label>
+            <Form.Control
+              type="image"
+              src={grid[selectedPixel]?.image}
+              //source={grid[selectedPixel]?.image}
+              disabled={true}
+              name="image"
+              //value={grid[selectedPixel]?.image}
+              autoFocus
+              style={{ width: "25%", height: "25%", marginRight:"6px", marginLeft:"9px" }}
+              className="text-primary border rounded font-extrabold text-center mb-4"
+            >
+            </Form.Control>
+
+
+        {/* {selectedPixel ? (
             <img
-              src={selectedImage}
+              src={grid[selectedPixel]?.image}
               alt="Selected"
-              style={{ width: "10%", height: "10%", marginRight:"9px" }}
+              className="object-cover rounded-md hover:scale-105 duration-500"
+              style={{ width: "15%", height: "15%", marginRight:"9px" }}
             />
           ) : (
             "No image selected."
-          )}
+          )} */}
 
-          <div className="w-9/12">
-            <p className="uppercase tracking-wide text-lg text-indigo-500 font-extrabold text-center">
-              إسم الشركة
-            </p>
+          <div className="w-9/12 flex flex-col">
+            {/* <p className="uppercase tracking-wide text-lg text-indigo-500 font-extrabold text-center">
+              {grid[selectedPixel]?.advCoName}
+            </p> */}
 
-            <Form.Label className="mt-2">رابط الشركة</Form.Label>
+           <Form.Label className=""></Form.Label>
             <Form.Control
               type="text"
-              placeholder="رابط الموقع"
               disabled={true}
-              name="url"
+              name="advCoName"
+              value={grid[selectedPixel]?.advCoName}
               autoFocus
-              className="p-2 bg-slate-100 border rounded"
+              className="text-primary border rounded font-extrabold text-center mb-4"
             >
-              {/* Add more countries as needed */}
             </Form.Control>
+           
+            
+
+            <a href={grid[selectedPixel]?.url} className="text-center" target="_blank">إضغط&nbsp;
+            <p className="text-red-600 inline-block">هنـا</p> للإنتقال للموقع</a>
+
+           
           </div>         
         </Modal.Body>
         <Modal.Footer>
@@ -181,7 +221,7 @@ const Home = () => {
                 "background-size 0.3s ease, background-position 0.3s ease",
             }}
             title={`مربع رقم ${index}`} // Add the tooltip text here
-            onClick={() => pixel.image && handleImageClick(pixel.image)} // Open image on click
+            onClick={() => pixel.image && handleImageClick(index)} // Open image on click
           ></div>
         ))}
       </div>

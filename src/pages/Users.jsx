@@ -62,7 +62,7 @@ const Users = ({ rows, cols }) => {
             ...newGrid[index],
             image: reader.result, // Store the image data URL
             //image: newGrid[index].image === '#ccc' ? '#000' : reader.result // Toggle color
-            name:"nimer",
+            //name:"nimer",
           };
           setGrid(newGrid);
         };
@@ -91,7 +91,8 @@ const Users = ({ rows, cols }) => {
     //splice(2, 1) means remove 1 element at index 2
     const newGrid = [...grid];
     //newGrid.splice(index, 1); // Remove 1 element at index =>> catastrophic
-    newGrid[index] = { ...newGrid[index], image: null, country: null, color: "#ccc", name: null, date: null,};
+    newGrid[index] = { ...newGrid[index], image: null, country: null, color: "#ccc", name: null, date: null,
+      description: null, email:null, mobile:null, url:null, width: null, height: null};
     //newGrid[index] = { ...newGrid[index], };
     setGrid(newGrid);
   };

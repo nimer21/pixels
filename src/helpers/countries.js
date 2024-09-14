@@ -106,7 +106,7 @@ const productCategory = [{"id":4,"alpha2":"af","alpha3":"afg","name":"أفغان
     {"id":368,"alpha2":"iq","alpha3":"irq","name":"العراق"},
     {"id":372,"alpha2":"ie","alpha3":"irl","name":"أيرلندا"},
     {"id":833,"alpha2":"im","alpha3":"imn","name":"جزيرة مان"},
-    {"id":376,"alpha2":"il","alpha3":"isr","name":"إسرائيل"},
+    // {"id":376,"alpha2":"il","alpha3":"isr","name":"إسرائيل"},
     {"id":380,"alpha2":"it","alpha3":"ita","name":"إيطاليا"},
     {"id":388,"alpha2":"jm","alpha3":"jam","name":"جامايكا"},
     {"id":392,"alpha2":"jp","alpha3":"jpn","name":"اليابان"},

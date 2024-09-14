@@ -138,7 +138,7 @@ const Home = () => {
         <Modal.Body className="flex justify-between">
 
 
-            <Form.Label className=""></Form.Label>
+            {/* <Form.Label className=""></Form.Label>
             <Form.Control
               type="image"
               src={grid[selectedPixel]?.image}
@@ -151,19 +151,19 @@ const Home = () => {
               className="text-primary border font-extrabold text-center
               object-cover rounded-md hover:scale-105 duration-1000"
             >
-            </Form.Control>
+            </Form.Control> */}
 
 
-        {/* {selectedPixel ? (
+        {selectedPixel ? (
             <img
               src={grid[selectedPixel]?.image}
               alt="Selected"
               className="object-cover rounded-md hover:scale-105 duration-500"
-              style={{ width: "15%", height: "15%", marginRight:"9px" }}
+              style={{ width: "55px", height: "50px", marginRight:"9px",  marginLeft:"9px"}}
             />
           ) : (
             "No image selected."
-          )} */}
+          )}
 
           <div className="w-9/12 flex flex-col">
             {/* <p className="uppercase tracking-wide text-lg text-indigo-500 font-extrabold text-center">

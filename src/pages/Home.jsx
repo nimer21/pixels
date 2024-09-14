@@ -147,8 +147,9 @@ const Home = () => {
               name="image"
               //value={grid[selectedPixel]?.image}
               autoFocus
-              style={{ width: "25%", height: "25%", marginRight:"6px", marginLeft:"9px" }}
-              className="text-primary border rounded font-extrabold text-center mb-4"
+              style={{ width: "55px", height: "50px", marginRight:"6px", marginLeft:"9px" }}
+              className="text-primary border font-extrabold text-center
+              object-cover rounded-md hover:scale-105 duration-1000"
             >
             </Form.Control>
 

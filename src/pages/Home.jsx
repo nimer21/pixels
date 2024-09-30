@@ -65,6 +65,10 @@ const Home = () => {
   return (
     <div>
       {/* <p className="mr-7 mb-2 font-semibold text-lg flex justify-center">ربما من الصعب أن نسميه أملاً.. لكنه ليس أقلّ من أن يكون عناداً..</p> */}
+      <div className="flex justify-center">
+      <p className="mr-7 mb-2 font-semibold text-lg flex justify-center">شبكة المنتجات المحلية</p>
+      <p className="mr-7 mb-2 font-semibold text-lg flex justify-center">Local Products Network</p>
+      </div>
       {/********************************************************************************************/}
   
       <Modal show={showModalImage} onHide={handleCloseModal} size="lg">
@@ -221,7 +225,7 @@ const Home = () => {
               transition:
                 "background-size 0.3s ease, background-position 0.3s ease",
             }}
-            title={`مربع رقم ${index}`} // Add the tooltip text here
+            title={`خلية رقم ${index}`} // Add the tooltip text here
             onClick={() => pixel.image && handleImageClick(index)} // Open image on click
           ></div>
         ))}

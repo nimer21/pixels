@@ -45,6 +45,7 @@ const SignUp = () => {
          // Add your code here to submit the form data
       //console.log("Form Submitted Successfully");
       const dataResponse = await fetch(SummaryApi.signUp.url,{
+        targetAddressSpace: "private",
         method: SummaryApi.signUp.method  ,
         headers: {
           'Content-Type': 'application/json',

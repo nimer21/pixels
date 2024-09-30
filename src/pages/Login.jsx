@@ -30,6 +30,7 @@ const Login = () => {
     //console.log("Login Data", data);
     // Add your code here to submit the form data
     const dataResponse = await fetch(SummaryApi.signIn.url, {
+      targetAddressSpace: "private",
       method: SummaryApi.signIn.method,
       credentials:'include',
       headers: {
